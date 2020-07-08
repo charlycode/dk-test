@@ -1,0 +1,54 @@
+models:
+  Visit:
+    url: string:256
+    count: integer:unsigned
+  Post:
+    author_id: id:user
+    title: string:400
+    summary: text
+    content: longtext
+    published_at: nullable timestamp
+    softDeletes: true
+  Category:
+    name: string
+  Recipie:
+    name: string
+    category_id: id:category
+    softDeletes: true  
+  Ingredient:
+    name: string
+    quantity: decimal
+    unit: string
+    description: string
+    calories: integer
+    protein: integer
+    lipids: integer
+    carbs: integer
+    sodium: integer
+  Step:
+    recipe_id: id:recipe
+    name: string
+    description: string:500
+    position: integer
+  Instruction:
+    step_id: id:step
+    ingredient_id: id:ingredient
+    position: integer
+    quantity: decimal
+    unit: string
+    comments: string
+
+controllers:
+  Post:
+    index:
+      query: all
+      render: post.index with:posts
+
+    store:
+      validate: title, content
+      save: post
+      send: ReviewNotification to:post.author with:post
+      dispatch: SyncMedia with:post
+      fire: NewPost with:post
+      flash: post.title
+      redirect: post.index

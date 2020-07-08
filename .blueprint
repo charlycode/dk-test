@@ -1,0 +1,35 @@
+created:
+    - database/migrations/2020_07_08_021021_create_visits_table.php
+    - database/migrations/2020_07_08_021022_create_posts_table.php
+    - database/migrations/2020_07_08_021023_create_categories_table.php
+    - database/migrations/2020_07_08_021024_create_recipies_table.php
+    - database/migrations/2020_07_08_021025_create_ingredients_table.php
+    - database/migrations/2020_07_08_021026_create_steps_table.php
+    - database/migrations/2020_07_08_021027_create_instructions_table.php
+    - app/Visit.php
+    - app/Post.php
+    - app/Category.php
+    - app/Recipie.php
+    - app/Ingredient.php
+    - app/Step.php
+    - app/Instruction.php
+    - database/factories/VisitFactory.php
+    - database/factories/PostFactory.php
+    - database/factories/CategoryFactory.php
+    - database/factories/RecipieFactory.php
+    - database/factories/IngredientFactory.php
+    - database/factories/StepFactory.php
+    - database/factories/InstructionFactory.php
+    - app/Http/Controllers/PostController.php
+    - tests/Feature/Http/Controllers/PostControllerTest.php
+updated:
+    - routes/web.php
+models:
+    User: { name: string, email: string, email_verified_at: 'datetime nullable', password: string, remember_token: 'string:100 nullable' }
+    Visit: { count: 'integer:unsigned' }
+    Post: { author_id: 'id:user', title: 'string:400', summary: text, content: longtext, published_at: 'nullable timestamp', softdeletes: softDeletes }
+    Category: { name: string }
+    Recipie: { name: string, category_id: 'id:category', softDeletes: true }
+    Ingredient: { name: string, quantity: decimal, unit: string, description: string, calories: integer, protein: integer, lipids: integer, carbs: integer, sodium: integer }
+    Step: { recipe_id: 'id:recipe', name: string, description: 'string:500', position: integer }
+    Instruction: { step_id: 'id:step', ingredient_id: 'id:ingredient', position: integer, quantity: decimal, unit: string, comments: string }
