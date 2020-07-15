@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: laravel
+  labels:
+    tier: backend
+  namespace: laravel
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: laravel
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: laravel
+        tier: backend
+    spec:
+      containers:
+        - name: laravel
+          image: us.gcr.io/splendid-alpha-283220/laravel:7-debian-10

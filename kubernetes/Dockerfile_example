@@ -1,0 +1,16 @@
+FROM docker.io/bitnami/laravel:7-debian-10
+MAINTAINER carlos.systemred@gmail.com
+WORKDIR /app
+COPY ./ ./
+
+ENV DB_HOST=HOST
+ENV DB_USERNAME=USERNAME
+ENV DB_PORT=3306
+ENV DB_PASSWORD=PASSWORD
+ENV DB_DATABASE=DATABASE
+ENV DB_CONNECTION=mysql
+
+USER root
+RUN chown -R bitnami:bitnami /app
+
+RUN ls -la /app
